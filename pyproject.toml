@@ -1,0 +1,103 @@
+[tool.poetry]
+name = "sarna"
+version = "0.1.0"
+description = "pet project"
+authors = ["Fiodar Hancharou <correlatedpeople@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12.8"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.8.1"
+mypy = "^1.13.0"
+pylint = "^3.3.1"
+pytest = ">=8.2.0,<9"
+flake8 = "5.0.4"
+black = "^24.10.0"
+pre-commit = "^4.0.1"
+boto3-stubs = {version = "1.26.145", extras = ["sagemaker"]}
+pytest-cov = "4.0.0"
+
+[build-system]
+requires = ["poetry-core", "poetry>=1.1.12"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+include = '.*\.py$'
+exclude = '''
+(
+    \.git
+  | __pycache__
+  | \.venv
+  | build
+  | dist
+  | setup.py
+)
+'''
+
+[tool.isort]
+profile = 'black'
+skip = [".git", "__pycache__", ".venv", "build", "dist", "setup.py" ]
+
+[tool.pydocstyle]
+convention = "google"
+add-ignore = "D100,D101,D102,D103,D104,D105,D106,D107"
+
+[tool.pylint]
+max-line-length = 120
+disable = [
+  "C0114",
+  "C0115",
+  "C0116",
+  "R0903",
+  "R0801",
+  "R0902",
+  "R0913",
+  "R0914",
+  "R0917",
+  "W0718",
+]
+ignore = [
+    ".git",
+    "__pycache__",
+    ".venv",
+    "build",
+    "dist",
+    "setup.py",
+    "**/package/python/**",
+]
+
+max-attributes = 15
+
+[tool.ruff]
+line-length = 120
+exclude = [
+    ".git",
+    "__pycache__",
+    ".venv",
+    "build",
+    "dist",
+    "setup.py",
+    "cdk.out",
+    "cdk.out/**"
+]
+
+[tool.ruff.lint]
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+]
+
+package-mode = false
