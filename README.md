@@ -1,4 +1,13 @@
-# sarna
-pet project
+# Sarna project
+A placeholder for any kind of project to run
 
-Hello world!
+
+Run FastAPI server:
+```
+poetry run uvicorn sarna.main:app --reload
+```
+
+Expose the app to web:
+```
+ngrok start sarna
+```
