@@ -1,0 +1,17 @@
+<h2>Last 10 Primes</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Index</th>
+            <th>Prime Number</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for prime in last_10_primes %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ prime }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

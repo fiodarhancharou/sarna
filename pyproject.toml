@@ -7,11 +7,15 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12.8"
-fastapi = "^0.115.8"
+fastapi = {extras = ["all"], version = "^0.115.8"}
 uvicorn = "^0.34.0"
 pyngrok = "^7.2.3"
 jinja2 = "^3.1.5"
 requests = "^2.32.3"
+matplotlib = "^3.10.0"
+python-multipart = "^0.0.20"
+websockets = "^14.2"
+pycryptodome = "^3.21.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.8.1"

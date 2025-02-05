@@ -3,6 +3,7 @@
 
 .vscode
 .tool-versions
+.ssl/*
 
 # Packages
 *.egg

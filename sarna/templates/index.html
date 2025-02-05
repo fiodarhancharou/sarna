@@ -3,31 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Sarna</title>
-    <link rel="icon" href="/static/sarna.png" type="image/x-icon">
+    <title>Sieve of Eratosthenes</title>
     <style>
-        .bucket {
-            width: 50px;
-            height: 50px;
-            background-color: #3498db;
-            margin: 20px;
-            display: inline-block;
-            animation: move 2s infinite;
+        .container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
         }
-
-        @keyframes move {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0); }
+        .plot {
+            flex: 1;
+        }
+        .table {
+            flex: 1;
+            margin-left: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <h1>Hello World, Sarna is calling!</h1>
-    <p>Welcome to the FastAPI application.</p>
-    <p>Your IP address is: {{ client_host }}</p>
-    <div class="bucket"></div>
-    <div class="bucket"></div>
-    <div class="bucket"></div>
+    <h1>Sieve of Eratosthenes</h1>
+    <form id="sieve-form">
+        <label for="number">Enter a number:</label>
+        <input type="number" id="number" name="number" value="100000" required>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="progress-container" style="display: none;">
+        <p>Progress: <span id="progress">0%</span></p>
+        <progress id="progress-bar" value="0" max="100"></progress>
+    </div>
+    <div id="result-container" style="display: none;">
+        <h2>Primes up to <span id="result-number"></span></h2>
+        <div class="container">
+            <div class="plot">
+                <img id="result-image" src="" alt="Primes Plot">
+            </div>
+            <div class="table" id="last-10-primes"></div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('sieve-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const number = document.getElementById('number').value;
+            const progressContainer = document.getElementById('progress-container');
+            const progressBar = document.getElementById('progress-bar');
+            const progressText = document.getElementById('progress');
+            const resultContainer = document.getElementById('result-container');
+            const resultNumber = document.getElementById('result-number');
+            const resultImage = document.getElementById('result-image');
+            const last10PrimesContainer = document.getElementById('last-10-primes');
+
+            progressContainer.style.display = 'block';
+            resultContainer.style.display = 'none';
+            progressBar.value = 0;
+            progressText.textContent = '0%';
+
+            const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+            const websocket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+            websocket.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                if (data.progress !== undefined) {
+                    progressBar.value = data.progress;
+                    progressText.textContent = `${data.progress.toFixed(2)}%`;
+                }
+            };
+
+            websocket.onopen = function() {
+                console.log("WebSocket connection opened");
+                websocket.send(JSON.stringify({ number: parseInt(number) }));
+            };
+
+            websocket.onerror = function(error) {
+                console.error("WebSocket error:", error);
+            };
+
+            websocket.onclose = async function() {
+                console.log("WebSocket connection closed");
+                progressContainer.style.display = 'none';
+                resultContainer.style.display = 'block';
+                resultNumber.textContent = number;
+                resultImage.src = `/plot_image/${number}`;
+
+                // Fetch the last 10 primes
+                const response = await fetch('/plot', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({ number: number }),
+                });
+                const html = await response.text();
+                last10PrimesContainer.innerHTML = html;
+            };
+        });
+    </script>
 </body>
 </html>

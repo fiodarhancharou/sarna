@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primes Plot</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        .plot {
+            flex: 1;
+        }
+        .table {
+            flex: 1;
+            margin-left: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Primes up to {{ number }}</h1>
+    <div class="container">
+        <div class="plot">
+            <img src="/plot_image/{{ number }}" alt="Primes Plot">
+        </div>
+        <div class="table">
+            <h2>Last 10 Primes</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Index</th>
+                        <th>Prime Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for prime in last_10_primes %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ prime }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+    <a href="/">Back</a>
+</body>
+</html>
