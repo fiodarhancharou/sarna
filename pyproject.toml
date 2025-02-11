@@ -16,6 +16,12 @@ matplotlib = "^3.10.0"
 python-multipart = "^0.0.20"
 websockets = "^14.2"
 pycryptodome = "^3.21.0"
+streamlit = "^1.42.0"
+websocket = "^0.2.1"
+websocket-client = "^1.8.0"
+locust = "^2.32.8"
+websocat = "^1.13.0"
+locust-plugins = "^4.5.3"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.8.1"

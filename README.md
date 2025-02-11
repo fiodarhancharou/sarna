@@ -11,3 +11,13 @@ Expose the app to web:
 ```
 ngrok start sarna
 ```
+
+Load test with users
+```
+poetry run locust -f utils/load_test.py
+```
+
+Run app in kubernetes
+```
+kubectl apply -f /home/fiodar/repositories/sarna/deployment.yaml
+```
