@@ -41,6 +41,9 @@ __pycache__
 /releases/*
 pip-wheel-metadata
 
+# uv
+uv.lock
+
 poetry/core/*
 *.pytype
 

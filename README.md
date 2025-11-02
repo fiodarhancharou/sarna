@@ -2,9 +2,14 @@
 A placeholder for any kind of project to run
 
 
+Setup project:
+```
+uv sync --extra dev
+```
+
 Run FastAPI server:
 ```
-poetry run uvicorn sarna.main:app --reload
+uv run uvicorn sarna.main:app --reload
 ```
 
 Expose the app to web:
@@ -12,9 +17,9 @@ Expose the app to web:
 ngrok start sarna
 ```
 
-Load test with users
+Load test with users:
 ```
-poetry run locust -f utils/load_test.py
+uv run locust -f utils/load_test.py
 ```
 
 Run app in kubernetes

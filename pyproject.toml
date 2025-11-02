@@ -1,42 +1,46 @@
-[tool.poetry]
+[project]
 name = "sarna"
 version = "0.1.0"
 description = "pet project"
-authors = ["Fiodar Hancharou <correlatedpeople@gmail.com>"]
+authors = [
+    {name = "Fiodar Hancharou", email = "correlatedpeople@gmail.com"}
+]
 readme = "README.md"
+requires-python = ">=3.12.8"
+dependencies = [
+    "fastapi[all]>=0.115.8",
+    "uvicorn>=0.34.0",
+    "pyngrok>=7.2.3",
+    "jinja2>=3.1.5",
+    "requests>=2.32.3",
+    "matplotlib>=3.10.0",
+    "python-multipart>=0.0.20",
+    "websockets>=14.2",
+    "pycryptodome>=3.21.0",
+    "streamlit>=1.42.0",
+    "websocket>=0.2.1",
+    "websocket-client>=1.8.0",
+    "locust>=2.32.8",
+    "websocat>=1.13.0",
+    "locust-plugins>=4.5.3",
+]
 
-[tool.poetry.dependencies]
-python = "^3.12.8"
-fastapi = {extras = ["all"], version = "^0.115.8"}
-uvicorn = "^0.34.0"
-pyngrok = "^7.2.3"
-jinja2 = "^3.1.5"
-requests = "^2.32.3"
-matplotlib = "^3.10.0"
-python-multipart = "^0.0.20"
-websockets = "^14.2"
-pycryptodome = "^3.21.0"
-streamlit = "^1.42.0"
-websocket = "^0.2.1"
-websocket-client = "^1.8.0"
-locust = "^2.32.8"
-websocat = "^1.13.0"
-locust-plugins = "^4.5.3"
-
-[tool.poetry.group.dev.dependencies]
-ruff = "^0.8.1"
-mypy = "^1.13.0"
-pylint = "^3.3.1"
-pytest = ">=8.2.0,<9"
-flake8 = "5.0.4"
-black = "^24.10.0"
-pre-commit = "^4.0.1"
-boto3-stubs = {version = "1.26.145", extras = ["sagemaker"]}
-pytest-cov = "4.0.0"
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.8.1",
+    "mypy>=1.13.0",
+    "pylint>=3.3.1",
+    "pytest>=8.2.0,<9",
+    "flake8==5.0.4",
+    "black>=24.10.0",
+    "pre-commit>=4.0.1",
+    "boto3-stubs[sagemaker]>=1.26.145",
+    "pytest-cov==4.0.0",
+]
 
 [build-system]
-requires = ["poetry-core", "poetry>=1.1.12"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [tool.black]
 line-length = 120
